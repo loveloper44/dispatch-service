@@ -2,15 +2,16 @@ import { Test } from '@nestjs/testing';
 import * as uuid from 'uuid';
 import { clear, advanceTo } from 'jest-date-mock';
 
+import { getHash } from '@user/Util';
+
 import { UserRepository } from '@user/infra/persistence/repository/UserRepository';
 import { UserAssembler } from '@user/application/assembler/UserAssembler';
 import { UserFactory } from '@user/domain/UserFactory';
 import { UserMapper } from '@user/infra/persistence/mapper/UserMapper';
 import { User } from '@user/domain/model/User';
 import { Password } from '@user/domain/model/Password';
-import { getHash } from '@user/application/Util';
 import { UserType, UserProvider } from '@user/constant';
-import { Database } from '@user/infra/persistence/Database';
+import { Database } from '@root/Database';
 
 describe('UserRepository', () => {
   let userRepository: UserRepository;

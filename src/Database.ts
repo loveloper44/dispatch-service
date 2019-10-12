@@ -1,6 +1,9 @@
 import { createConnection, Connection, ConnectionOptions } from 'typeorm';
 import { PasswordEntity } from '@user/infra/persistence/entity/PasswordEntity';
 import { UserEntity } from '@user/infra/persistence/entity/UserEntity';
+import { DispatchEntity } from '@dispatch/infra/persistence/entity/DispatchEntity';
+import { DriverEntity } from '@dispatch/infra/persistence/entity/DriverEntity';
+import { AddressEntity } from '@dispatch/infra/persistence/entity/AddressEntity';
 
 export class Database {
   private connection: Connection | null;
@@ -16,7 +19,14 @@ export class Database {
       this.connection = await createConnection({
         type: 'sqlite',
         database: `:memory:`,
-        entities: [UserEntity, PasswordEntity],
+        entities: [
+          DispatchEntity,
+          PasswordEntity,
+          DriverEntity,
+          AddressEntity,
+          UserEntity,
+          PasswordEntity,
+        ],
         synchronize: true,
       });
     }

@@ -19,7 +19,7 @@ import { SignUpLocalCommand } from '@user/application/command/SignUpLocalCommand
 import { SignInLocalCommandResult } from '@user/application/command/SignInLocalCommandResult';
 import { SignInLocalCommand } from '@user/application/command/SignInLocalCommand';
 import * as UserDto from '@user/application/assembler/dto/UserDto';
-import { getHash, createToken } from '@user/application/Util';
+import { getHash, createToken } from '@user/Util';
 import { UserAssembler } from '@user/application/assembler/UserAssembler';
 
 import { UserFactory } from '@user/domain/UserFactory';

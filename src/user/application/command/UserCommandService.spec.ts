@@ -2,12 +2,12 @@ import { UnprocessableEntityException } from '@nestjs/common';
 import * as uuid from 'uuid';
 import { Test } from '@nestjs/testing';
 
+import { getHash } from '@user/Util';
 import { UserCommandService } from '@user/application/command/UserCommandService';
 import { UserFactory } from '@user/domain/UserFactory';
 import { UserRepository } from '@user/infra/persistence/repository/UserRepository';
 import { User } from '@user/domain/model/User';
 import { Password } from '@user/domain/model/Password';
-import { getHash } from '@user/application/Util';
 import { UserType, UserProvider } from '@user/constant';
 import { SignUpLocalCommand } from '@user/application/command/SignUpLocalCommand';
 import { UserAssembler } from '@user/application/assembler/UserAssembler';
