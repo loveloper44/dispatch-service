@@ -10,6 +10,7 @@ import { Password } from '@user/domain/model/Password';
 import { getHash } from '@user/application/Util';
 import { UserType, UserProvider } from '@user/constant';
 import { SignUpLocalCommand } from '@user/application/command/SignUpLocalCommand';
+import { UserAssembler } from '@user/application/assembler/UserAssembler';
 
 describe('UserCommandService', () => {
   let userCommandService: UserCommandService;
@@ -17,6 +18,7 @@ describe('UserCommandService', () => {
   describe('.handleSignedUpLocalCommand()', () => {
     let userSignedUp: User;
     let userRepository: UserRepository;
+
     beforeAll(async () => {
       userSignedUp = new User(
         uuid.v1(),
@@ -31,6 +33,7 @@ describe('UserCommandService', () => {
         providers: [
           UserFactory,
           UserCommandService,
+          UserAssembler,
           {
             provide: UserRepository,
             useValue: {
