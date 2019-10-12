@@ -18,7 +18,7 @@ export class UserMapper {
     const { id, email, password, type, provider, version, createdAt } = entity;
 
     let passwordDto: UserDto.Password | null = null;
-    if (password) {
+    if (password.hashedPassword && password.createdAt) {
       passwordDto = {
         hashedPassword: password.hashedPassword,
         createdAt: password.createdAt,
