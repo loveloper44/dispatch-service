@@ -8,7 +8,7 @@ export class Password extends ValueObject<Password> {
     super();
   }
 
-  public equals(otherPassword: Password): boolean {
-    return this.hashedPassword === otherPassword.hashedPassword;
+  public isSamePassword(hashedPassword: string): boolean {
+    return this.hashedPassword === hashedPassword;
   }
 }

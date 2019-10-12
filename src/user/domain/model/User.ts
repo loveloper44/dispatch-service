@@ -18,9 +18,9 @@ export class User extends AggregateRoot<User, string> {
     super(id, version);
   }
 
-  public authenticate(otherPassword: Password | null): boolean {
+  public authenticate(hashedPassword: string): boolean {
     if (this.provider === UserProvider.LOCAL) {
-      return this.password.equals(otherPassword);
+      return this.password.isSamePassword(hashedPassword);
     } else {
       throw new UnprocessableEntityException('Provider is invalid');
     }
