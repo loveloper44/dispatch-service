@@ -8,28 +8,33 @@ import {
   Req,
   Request,
   BadRequestException,
+  Get,
+  Query,
 } from '@nestjs/common';
-import { CommandBus } from '@nest-kr/cqrs';
+import { CommandBus, QueryBus } from '@nest-kr/cqrs';
 
 import { UserType } from '@dispatch/constant';
 
 import { RequestDispatchDto } from '@dispatch/interface/dto/RequestDispatchDto';
+import { GetAllDispatchesDto } from '@dispatch/interface/dto/GetAllDispatchesDto';
 import { AuthManager } from '@dispatch/interface/AuthManager';
 import { UserDto } from '@dispatch/interface/dto/UserDto';
 
 import { RequestDispatchCommand } from '@dispatch/application/command/RequestDispatchCommand';
 import { RequestDispatchCommandResult } from '@dispatch/application/command/RequestDispatchCommandResult';
 import { MatchDispatchCommand } from '@dispatch/application/command/MatchDispatchCommand';
+import { GetAllDispatchesQueryResult } from '../application/query/GetAllDispatchesQueryResult';
+import { GetAllDispatchesQuery } from '../application/query/GetAllDispatchesQuery';
 
 @Controller('dispatches')
 export class DispatchController {
   constructor(
     private commandBus: CommandBus,
+    private queryBus: QueryBus,
     private authManager: AuthManager,
   ) {}
 
   @Post()
-  @UsePipes(new ValidationPipe())
   public async requestDispatch(
     @Req() req: Request,
     @Body() dto: RequestDispatchDto,
@@ -60,7 +65,6 @@ export class DispatchController {
   }
 
   @Post('/:dispatchId/match')
-  @UsePipes(new ValidationPipe())
   public async matchDispatch(
     @Req() req: Request,
     @Param('dispatchId') dispatchId: string,
@@ -81,6 +85,31 @@ export class DispatchController {
     return {
       message: 'Matched successfully',
       result: null,
+    };
+  }
+
+  @Get()
+  public async getAllDispatches(
+    @Req() req: Request,
+    @Query() dto: GetAllDispatchesDto,
+  ) {
+    this.authManager.verify(req);
+
+    const { page, count, status } = dto;
+
+    const query: GetAllDispatchesQuery = new GetAllDispatchesQuery(
+      page,
+      count,
+      status,
+    );
+
+    const result: GetAllDispatchesQueryResult = await this.queryBus.execute(
+      query,
+    );
+
+    return {
+      message: 'Fetched all dispatches successfully',
+      result,
     };
   }
 }

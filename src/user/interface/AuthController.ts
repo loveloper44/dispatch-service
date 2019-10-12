@@ -1,10 +1,4 @@
-import {
-  Controller,
-  Post,
-  Body,
-  UsePipes,
-  ValidationPipe,
-} from '@nestjs/common';
+import { Controller, Post, Body } from '@nestjs/common';
 import { CommandBus } from '@nest-kr/cqrs';
 
 import { SignUpDto } from '@user/interface/dto/SignUpDto';
@@ -17,7 +11,6 @@ export class AuthController {
   constructor(private commandBus: CommandBus) {}
 
   @Post('/sign-up')
-  @UsePipes(new ValidationPipe())
   public async signUp(@Body() dto: SignUpDto) {
     const { email, password, type } = dto;
 
@@ -31,7 +24,6 @@ export class AuthController {
   }
 
   @Post('/sign-in')
-  @UsePipes(new ValidationPipe())
   public async signIn(@Body() dto: SignInDto) {
     const { email, password } = dto;
 

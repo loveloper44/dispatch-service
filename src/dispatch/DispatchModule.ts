@@ -11,6 +11,8 @@ import { DispatchFactory } from '@dispatch/domain/DispatchFactory';
 
 import { DispatchMapper } from '@dispatch/infra/persistence/mapper/DispatchMapper';
 import { DispatchRepository } from '@dispatch/infra/persistence/repository/DispatchRepository';
+import { DispatchQuery } from '@dispatch/infra/persistence/query/DispatchQuery';
+import { DispatchQueryService } from '@dispatch/application/query/DispatchQueryService';
 
 @Module({
   imports: [CqrsModule],
@@ -22,6 +24,8 @@ import { DispatchRepository } from '@dispatch/infra/persistence/repository/Dispa
     DispatchMapper,
     DispatchCommandService,
     AuthManager,
+    DispatchQuery,
+    DispatchQueryService,
   ],
   exports: [],
 })
