@@ -39,11 +39,12 @@ describe('UserRepository', () => {
     await db.connect();
   });
 
-  afterAll(() => {
+  afterAll(async () => {
     clear();
+    await db.disconnect();
   });
 
-  describe('.find()', () => {
+  describe('.findById()', () => {
     let before: User;
     let after: User;
     let id: string;

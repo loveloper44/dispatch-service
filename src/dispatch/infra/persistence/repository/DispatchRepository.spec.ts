@@ -43,8 +43,9 @@ describe('DispatchRepository', () => {
     await db.connect();
   });
 
-  afterAll(() => {
+  afterAll(async () => {
     clear();
+    await db.disconnect();
   });
 
   describe('.findById()', () => {
