@@ -1,19 +1,21 @@
 import { Module, OnModuleInit } from '@nestjs/common';
+import { TerminusModule } from '@nestjs/terminus';
 
 import { UserModule } from '@user/UserModule';
 import { DispatchModule } from '@dispatch/DispatchModule';
 
-import { Database } from '@root/Database';
+import { CommonModule } from '@root/CommonModule';
+import { TerminusOptionsService } from '@root/TerminusOptionsService';
 
 @Module({
-  imports: [UserModule, DispatchModule],
-  controllers: [],
-  providers: [Database],
+  imports: [
+    CommonModule,
+    UserModule,
+    DispatchModule,
+    TerminusModule.forRootAsync({
+      useClass: TerminusOptionsService,
+      imports: [CommonModule],
+    }),
+  ],
 })
-export class AppModule implements OnModuleInit {
-  constructor(private database: Database) {}
-
-  async onModuleInit() {
-    await this.database.connect();
-  }
-}
+export class AppModule {}

@@ -1,4 +1,9 @@
-import { createConnection, Connection, ConnectionOptions } from 'typeorm';
+import {
+  createConnection,
+  Connection,
+  ConnectionOptions,
+  getConnection,
+} from 'typeorm';
 import { PasswordEntity } from '@user/infra/persistence/entity/PasswordEntity';
 import { UserEntity } from '@user/infra/persistence/entity/UserEntity';
 import { DispatchEntity } from '@dispatch/infra/persistence/entity/DispatchEntity';
@@ -39,5 +44,10 @@ export class Database {
 
     await this.connection.close();
     this.connection = null;
+  }
+
+  public async checkHealth(): Promise<void> {
+    const connection = getConnection();
+    await connection.query('SELECT 1+1 AS result');
   }
 }
