@@ -27,8 +27,8 @@ export class Dispatch extends AggregateRoot<Dispatch, string> {
   }
 
   matchBy(driver: Driver) {
-    if (this.driver !== null || this.status !== DispatchStatus.WAITING) {
-      throw new UnprocessableEntityException('Dispatch is invalid');
+    if (this.status !== DispatchStatus.WAITING) {
+      throw new UnprocessableEntityException('Status is not waiting');
     }
 
     this.driver = driver;
