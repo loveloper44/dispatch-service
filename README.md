@@ -28,7 +28,8 @@ docker build -t dispatch-service .
 docker run -d -p 3000:3000 --name dispatch-service dispatch-service
 ```
 
-### API
-https://documenter.getpostman.com/view/6397624/SVtWvmM4
+### Document
+
+https://www.notion.so/Dispatch-Service-f1e7141eb5eb4b5b88c39610ff81615b
 
 
